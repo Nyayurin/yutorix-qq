@@ -35,7 +35,6 @@ class QQAdapter(
 
 	override suspend fun start(yutori: Yutori) {
 		val accessToken = AccessToken.get(id.toString(), secret)
-		val headers = accessToken.headers()
 		val gateway = Gateway.get(accessToken)
 		do {
 			val client = HttpClient {
