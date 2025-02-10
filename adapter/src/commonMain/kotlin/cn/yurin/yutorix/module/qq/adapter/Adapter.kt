@@ -45,6 +45,28 @@ class QQAdapter(
 
 			try {
 				client.webSocket(gateway.url) {
+					val firstConn = """{
+						"op": 2,
+						"d": {
+							"token": ${gateway.botAccessToken},
+							"intents": ${1 shl 25},
+							"shard": [0, 1],
+							"properties": {
+								"$\os": "linux",
+								"$\browser": "my_library",
+								"$\device": "my_library"
+							}
+						}
+					}"""
+					val resume = """{
+						"op": 6,
+						"d": {
+							"token": ${gateway.botAccessToken},
+							"session_id": "",
+							"seq": 0
+						}
+					}"""
+					send(firstConn)
 					val ready = false
 					Log.i { "成功建立 WebSocket 连接, 尝试建立事件推送服务" }
 					launch {
